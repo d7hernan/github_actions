@@ -24,11 +24,14 @@ jobs:
     steps:
     
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-     - name: Checkout
      - uses: actions/checkout@v3
-       with:
-          fetch-depth: 0 # Let's get all the branches
+      
      - name: Run markdown lint
      - run: |
          npm install remark-cli remark-preset-lint-consistent
          npx remark . --use remark-preset-lint-consistent --frail
+         
+     - uses: actions/upload-artifact@main
+       with:
+          name: remark-lint-report
+          path: public/
